@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello DevOps - Lab 1</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 40px;
+        }
+        .container { max-width: 600px;}
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f7f7f7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello DevOps - Lab 1</h1>
+        <p>This is a simple frontend for the Hello DevOps - Lab 1 API</p>
+
+        <button id="check">Check status</button>
+
+        <div class="status" id="statusBox">
+            Waiting for status...
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById("check");
+        const box = document.getElementById("statusBox");
+
+        btn.onclick = async () => {
+            box.innerHTML = "Consultando...";
+            try {
+                const res = await fetch("/health");
+                const data = await res.json();
+                box.innerHTML = JSON.stringify(data, null, 2);
+            } catch (error) {
+                box.innerHTML = "Error: " + error.message;
+            }
+        };
+    </script>
+</body>
+</html>
